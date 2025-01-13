@@ -11,7 +11,7 @@ public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "idHotel")
     private int id;
 
     @Column(name = "nombre")
@@ -43,6 +43,11 @@ public class Hotel {
         this.categoria = categoria;
         this.piscina = piscina;
         this.localidad = localidad;
+    }
+
+    public Hotel(int id, List<Habitacion> listaHabitaciones) {
+        this.id = id;
+        this.listaHabitaciones = listaHabitaciones;
     }
 
     public int getId() {
