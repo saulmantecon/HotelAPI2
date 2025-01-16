@@ -11,4 +11,6 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Long> {
 
     Optional<Habitacion> findByTamanoAndPrecioNocheBetween(int tamano, double precioNocheAfter, double precioNocheBefore);
     Optional<Habitacion> findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(int tamano, double precioNocheAfter, double precioNocheBefore);
+
+    Optional<Habitacion> findById(int id);
 }

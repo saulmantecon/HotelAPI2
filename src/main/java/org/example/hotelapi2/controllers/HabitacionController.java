@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("api/habitaciones")
+@RequestMapping("api/habitacion")
 @Tag(name = "habitaciones", description = "Catálogo de habitaciones ")
 public class HabitacionController {
     private final HabitacionService habitacionService;
@@ -19,34 +19,48 @@ public class HabitacionController {
     public HabitacionController(HabitacionService habitacionService) {
         this.habitacionService = habitacionService;
     }
-    @PostMapping("saveHabitacionEnHotel")
+
+    @PostMapping("saveHabitacion")
     @Operation(summary = "Guardar una nueva habitacion", description = "Guarda una nueva habitacion en un hotel en la base de datos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "hotel guardado exitosamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud incorrecta")
     })
-    public void saveHabitacionEnHotel(@RequestBody Habitacion habitacion) {
+    public void saveHabitacion(@RequestBody Habitacion habitacion) {
         try {
             habitacionService.saveHabitacion(habitacion);
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitud incorrecta al guardar una habitacion en un hotel", e);
         }
     }
 
-    @DeleteMapping("deleteHabitacionEnHotel")
+    @DeleteMapping("deleteHabitacion")
     @Operation(summary = "Guardar una nueva habitacion", description = "Guarda una nueva habitacion en un hotel en la base de datos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "hotel guardado exitosamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud incorrecta")
     })
-    public void deleteHabitacionEnHotel(@RequestBody Habitacion habitacion){
-             try {
-                 habitacionService.deleteHabitacion(habitacion);
-             }catch (Exception e) {
-                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitud incorrecta");
-             }
+    public void deleteHabitacion(@RequestBody Habitacion habitacion) {
+        try {
+            habitacionService.deleteHabitacion(habitacion);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitud incorrecta");
+        }
     }
 
+    @PostMapping("updateHabitacionOcupada/{id}")
+    @Operation(summary = "Actualizar estado de la habitacion", description = "Actualizar el estado de la habitacion a ocupada")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "hotel guardado exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta")
+    })
 
+    public void updateHabitacionOcupada(@PathVariable int id) {//ESTO NO FUNCIONA
+        try {
+            habitacionService.updateHabitacionOcupada(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitud incorrecta");
+        }
+    }
 }

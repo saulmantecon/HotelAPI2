@@ -1,6 +1,7 @@
 package org.example.hotelapi2.services;
 
 import org.example.hotelapi2.model.Habitacion;
+import org.example.hotelapi2.model.Hotel;
 import org.example.hotelapi2.repository.HabitacionRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ public class HabitacionService {
     public HabitacionService(HabitacionRepository habitacionRepository) {
         this.habitacionRepository = habitacionRepository;
     }
+
     public void saveHabitacion(Habitacion habitacion) {
         habitacionRepository.save(habitacion);
     }
@@ -21,31 +23,35 @@ public class HabitacionService {
         habitacionRepository.delete(habitacion);
     }
 
-    public void updateHabitacionOcupada(Habitacion habitacion) {
-        habitacion.setOcupada(true);
-        habitacionRepository.save(habitacion);
+    public void updateHabitacionOcupada(int id) { // ESTO NO FUNCIONA
+        Optional<Habitacion> habitacion = habitacionRepository.findById(id);
+        if (habitacion.isPresent()) {
+            Habitacion habitacionActual = habitacion.get();
+            habitacionActual.setOcupada(true);
+            habitacionRepository.save(habitacionActual);
+        }
     }
 
-    public Optional<Habitacion> findHabitacionesPorTamanoYPrecio(int tamano, double precioNocheAfter, double precioNocheBefore){
+    public Optional<Habitacion> findHabitacionesPorTamanoYPrecio(int tamano, double precioNocheAfter, double precioNocheBefore) {
         Optional<Habitacion> habitaciones = habitacionRepository.findByTamanoAndPrecioNocheBetween(tamano, precioNocheAfter, precioNocheBefore);
-        habitaciones.map(habitacion -> new Habitacion(habitacion.getId()
-                ,habitacion.getTamano()
-                ,habitacion.getPrecioNoche()
-                ,habitacion.isDesayuno()
-                ,habitacion.isOcupada()
-                ,habitacion.getHotel()
+        return habitaciones.map(habitacion -> new Habitacion(habitacion.getId()
+                , habitacion.getTamano()
+                , habitacion.getPrecioNoche()
+                , habitacion.isDesayuno()
+                , habitacion.isOcupada()
+                , habitacion.getHotel()
         ));
-        return habitaciones;
     }
 
-    public Optional<Habitacion> findBymuchascosas(int tamano, double precioNocheAfter, double precioNocheBefore){
+    public Optional<Habitacion> findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(int tamano, double precioNocheAfter, double precioNocheBefore) {
         Optional<Habitacion> habitaciones = habitacionRepository.findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(tamano, precioNocheAfter, precioNocheBefore);
-        return habitaciones.map(habitacion ->  new Habitacion(habitacion.getId()
-                ,habitacion.getTamano()
-                ,habitacion.getPrecioNoche()
-                ,habitacion.isDesayuno()
-                ,habitacion.isOcupada()
-                ,habitacion.getHotel()
+        return habitaciones.map(habitacion -> new Habitacion(habitacion.getId()
+                , habitacion.getTamano()
+                , habitacion.getPrecioNoche()
+                , habitacion.isDesayuno()
+                , habitacion.isOcupada()
+                , habitacion.getHotel()
         ));
     }
+
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.hotelapi2.model.Habitacion;
 import org.example.hotelapi2.model.Hotel;
 import org.example.hotelapi2.services.HotelService;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,11 @@ import java.util.Optional;
 @Tag(name = "hoteles", description = "Catálogo de hoteles")
 public class HotelController {
     private final HotelService hotelService;
+
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
+
     @PostMapping("saveHotel")
     @Operation(summary = "Guardar un nuevo hotel", description = "Guarda un nuevo hotel en la base de datos")
     @ApiResponses(value = {
@@ -44,10 +47,10 @@ public class HotelController {
             @ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),
             @ApiResponse(responseCode = "404", description = "No se encontraron autos")
     })
-    public Optional<Hotel> getHotelByCategory(@PathVariable @Parameter(description = "categoria del hotel", example = "categoria1") String categoria){
+    public Optional<Hotel> getHotelByCategory(@PathVariable @Parameter(description = "categoria del hotel", example = "categoria1") String categoria) {
         try {
             return hotelService.findByCategoria(categoria);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitud incorrecta", e);
         }
 
@@ -60,17 +63,14 @@ public class HotelController {
             @ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),
             @ApiResponse(responseCode = "404", description = "No se encontraron autos")
     })
-    public Optional<Hotel> getHotelByLocalidad(@PathVariable @Parameter(description = "localidad del hotel", example = "localidad1") String localidad){
+    public Optional<Hotel> getHotelByLocalidad(@PathVariable @Parameter(description = "localidad del hotel", example = "localidad1") String localidad) {
         try {
             return hotelService.findByLocalidad(localidad);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitud incorrecta", e);
         }
 
     }
-
-
-
 
 }
 
