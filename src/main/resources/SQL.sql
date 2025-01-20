@@ -1,23 +1,39 @@
 DROP DATABASE IF EXISTS hotelesapi;
 create database hotelesapi;
 use hotelesapi;
-CREATE TABLE hoteles(
-                        idHotel INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                        nombre varchar(20) unique,
-                        descripcion varchar(100),
-                        categoria varchar(20),
-                        piscina boolean not null,
-                        localidad varchar(20)
+CREATE TABLE hoteles
+(
+    idHotel     INT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre      varchar(20) unique,
+    descripcion varchar(100),
+    categoria   varchar(20),
+    piscina     boolean not null,
+    localidad   varchar(20)
 
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  AUTO_INCREMENT = 1;
 
-CREATE TABLE habitaciones(
-                             idHabitacion int not null auto_increment primary key,
-                             tamano int not null,
-                             precioNoche double not null,
-                             desayuno boolean not null,
-                             ocupada boolean not null,
-                             idHotel int,
-                             foreign key (idHotel) references hoteles(idHotel)
+CREATE TABLE habitaciones
+(
+    idHabitacion int     not null auto_increment primary key,
+    tamano       int     not null,
+    precioNoche  double  not null,
+    desayuno     boolean not null,
+    ocupada      boolean not null,
+    idHotel      int,
+    foreign key (idHotel) references hoteles (idHotel)
 
-)ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  AUTO_INCREMENT = 1;
+
+CREATE TABLE users
+(
+    id_user bigint not null auto_increment primary key,
+    username   varchar(50) unique,
+    pwd    varchar(50)
+
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  AUTO_INCREMENT = 1;

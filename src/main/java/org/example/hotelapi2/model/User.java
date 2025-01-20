@@ -1,17 +1,28 @@
 package org.example.hotelapi2.model;
 
-public class User {
+import jakarta.persistence.*;
 
-    private String user;
+@Entity
+@Table(name = "users")
+public class User {
+    @Column(name = "username")
+    private String username;
+    @Column(name = "pwd")
     private String pwd;
+    @Transient
     private String token;
 
-    public String getUser() {
-        return user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_user")
+    private Long id;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String user) {
+        this.username = user;
     }
 
     public String getPwd() {
@@ -28,5 +39,21 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public User(String user, String pwd) {
+        this.username = user;
+        this.pwd = pwd;
+    }
+
+    public User() {
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
