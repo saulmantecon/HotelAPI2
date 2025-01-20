@@ -53,7 +53,6 @@ public class HotelController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitud incorrecta", e);
         }
-
     }
 
     @GetMapping("hotelPorLocalidad/{localidad}")
@@ -69,7 +68,6 @@ public class HotelController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitud incorrecta", e);
         }
-
     }
 
 }
