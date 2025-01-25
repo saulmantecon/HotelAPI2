@@ -21,7 +21,7 @@ public class HotelApi2Application{
 
 
     @Configuration
-    public class SecurityConfig {
+    public static class SecurityConfig {
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,6 +29,8 @@ public class HotelApi2Application{
                     .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers(HttpMethod.POST, "/user").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/hotelPorCategoria/{categoria}").permitAll()
+                            .requestMatchers(HttpMethod.GET, "habitacion/{tamano}/{preciomin}/{preciomax}").permitAll()
                             .requestMatchers( "/doc/**").permitAll()
                             .requestMatchers( "/v3/**").permitAll() //v3 documentos (info)
                             .anyRequest().authenticated()// Todo lo demás requiere autenticación

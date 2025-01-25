@@ -5,7 +5,9 @@ import org.example.hotelapi2.model.Hotel;
 import org.example.hotelapi2.repository.HabitacionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class HabitacionService {
@@ -43,15 +45,19 @@ public class HabitacionService {
         ));
     }
 
-    public Optional<Habitacion> findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(int tamano, double precioNocheAfter, double precioNocheBefore) {
-        Optional<Habitacion> habitaciones = habitacionRepository.findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(tamano, precioNocheAfter, precioNocheBefore);
-        return habitaciones.map(habitacion -> new Habitacion(habitacion.getId()
-                , habitacion.getTamano()
-                , habitacion.getPrecioNoche()
-                , habitacion.isDesayuno()
-                , habitacion.isOcupada()
-                , habitacion.getHotel()
-        ));
+    public List<Habitacion> findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(int tamano, double precioNocheAfter, double precioNocheBefore) {
+        return habitacionRepository.findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(tamano, precioNocheAfter, precioNocheBefore)
+                .stream()
+                .map(habitacion -> new Habitacion(
+                        habitacion.getId(),
+                        habitacion.getTamano(),
+                        habitacion.getPrecioNoche(),
+                        habitacion.isDesayuno(),
+                        habitacion.isOcupada(),
+                        habitacion.getHotel()
+                ))
+                .collect(Collectors.toList());
     }
+
 
 }
