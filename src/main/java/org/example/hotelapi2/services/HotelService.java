@@ -22,12 +22,12 @@ public class HotelService {
 
     public Optional<Hotel> findByCategoria(String categoria) {
         Optional<Hotel> hotelOptional = hotelRepository.findByCategoria(categoria);
-        return hotelOptional.map(hotel -> new Hotel(hotel.getId(), hotel.getNombre(), hotel.getDescripcion(), hotel.getCategoria(), hotel.isPiscina(), hotel.getLocalidad()));
+        return hotelOptional.map(hotel -> new Hotel(hotel.getId(), hotel.getNombre(), hotel.getDescripcion(), hotel.getCategoria(), hotel.isPiscina(), hotel.getLocalidad(), hotel.getListaHabitaciones()));
     }
 
     public Optional<Hotel> findByLocalidad(String Localidad) {
         Optional<Hotel> hotelOptional = hotelRepository.findByLocalidad(Localidad);
-        return hotelOptional.map(hotel -> new Hotel(hotel.getId(), hotel.getNombre(), hotel.getDescripcion(), hotel.getCategoria(), hotel.isPiscina(), hotel.getLocalidad()));
+        return hotelOptional.map(hotel -> new Hotel(hotel.getId(), hotel.getNombre(), hotel.getDescripcion(), hotel.getCategoria(), hotel.isPiscina(), hotel.getLocalidad(), hotel.getListaHabitaciones()));
     }
 
 

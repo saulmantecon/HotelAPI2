@@ -29,7 +29,8 @@ public class HotelController {
     @Operation(summary = "Guardar un nuevo hotel", description = "Guarda un nuevo hotel en la base de datos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "hotel guardado exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta")
+            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),
+            @ApiResponse(responseCode = "403", description = "Solicitud incorrecta por autentificacion")
     })
     public void saveHotel(@RequestBody @Parameter(description = "Datos del hotel a guardar", example = "{\"nombre\":\"hotelazo\"}") Hotel hotel) {
         try {
@@ -41,7 +42,7 @@ public class HotelController {
 
 
     @GetMapping("hotelPorCategoria/{categoria}")
-    @Operation(summary = "Obtener hoteles por categoria", description = "Obtiene una lista de ")
+    @Operation(summary = "Obtener hoteles por categoria", description = "Obtiene una lista de hoteles por categoria")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de autos obtenida exitosamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),

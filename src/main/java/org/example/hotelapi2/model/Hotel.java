@@ -1,6 +1,7 @@
 package org.example.hotelapi2.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idHotel")
+    @Column(name = "id_hotel")
     private int id;
 
     @Column(name = "nombre")
@@ -29,6 +30,7 @@ public class Hotel {
     @Column(name = "localidad")
     private String localidad;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<Habitacion> listaHabitaciones;
 
@@ -36,19 +38,24 @@ public class Hotel {
 
     }
 
-    public Hotel(int id, String nombre, String descripcion, String categoria, boolean piscina, String localidad) {
+    public Hotel(int id, String nombre, String descripcion, String categoria, boolean piscina, String localidad, List<Habitacion> listaHabitaciones) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.piscina = piscina;
         this.localidad = localidad;
+        this.listaHabitaciones = listaHabitaciones;
     }
+
+
 
     public Hotel(int id, List<Habitacion> listaHabitaciones) {
         this.id = id;
         this.listaHabitaciones = listaHabitaciones;
     }
+
+
 
     public int getId() {
         return id;

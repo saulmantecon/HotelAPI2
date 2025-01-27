@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface HabitacionRepository extends JpaRepository<Habitacion, Long> {
 
-    Optional<Habitacion> findByTamanoAndPrecioNocheBetween(int tamano, double precioNocheAfter, double precioNocheBefore);
-    List<Habitacion> findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(int tamano, double precioNocheAfter, double precioNocheBefore);
+    List<Habitacion> findByHotelIdAndOcupadaFalseAndTamanoAndPrecioNocheBetween(int hotelId, int tamano, double precioNocheAfter, double precioNocheBefore);
+
 
     Optional<Habitacion> findById(int id);
 }

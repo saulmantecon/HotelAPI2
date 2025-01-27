@@ -10,13 +10,13 @@ public class Habitacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idHabitacion")
+    @Column(name = "id_habitacion")
     private int id;
 
     @Column(name = "tamano")
     private int tamano;
 
-    @Column(name = "precioNoche")
+    @Column(name = "precio_noche")
     private double precioNoche;
 
     @Column(name = "desayuno")
@@ -24,9 +24,9 @@ public class Habitacion {
 
     @Column(name = "ocupada")
     boolean ocupada;
-
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "idHotel", referencedColumnName = "idHotel")
+    @JoinColumn(name = "id_hotel", referencedColumnName = "id_hotel")
     private Hotel hotel;
 
     public Habitacion() {

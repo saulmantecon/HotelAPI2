@@ -1,13 +1,11 @@
 package org.example.hotelapi2.services;
 
 import org.example.hotelapi2.model.Habitacion;
-import org.example.hotelapi2.model.Hotel;
 import org.example.hotelapi2.repository.HabitacionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class HabitacionService {
@@ -18,10 +16,12 @@ public class HabitacionService {
     }
 
     public void saveHabitacion(Habitacion habitacion) {
+        System.out.println("habitacion recibida: " + habitacion);
         habitacionRepository.save(habitacion);
     }
 
     public void deleteHabitacion(Habitacion habitacion) {
+        System.out.println("habitacion recibida: " + habitacion);
         habitacionRepository.delete(habitacion);
     }
 
@@ -34,29 +34,8 @@ public class HabitacionService {
         }
     }
 
-    public Optional<Habitacion> findHabitacionesPorTamanoYPrecio(int tamano, double precioNocheAfter, double precioNocheBefore) {
-        Optional<Habitacion> habitaciones = habitacionRepository.findByTamanoAndPrecioNocheBetween(tamano, precioNocheAfter, precioNocheBefore);
-        return habitaciones.map(habitacion -> new Habitacion(habitacion.getId()
-                , habitacion.getTamano()
-                , habitacion.getPrecioNoche()
-                , habitacion.isDesayuno()
-                , habitacion.isOcupada()
-                , habitacion.getHotel()
-        ));
-    }
-
-    public List<Habitacion> findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(int tamano, double precioNocheAfter, double precioNocheBefore) {
-        return habitacionRepository.findByOcupadaIsFalseAndTamanoAndPrecioNocheBetween(tamano, precioNocheAfter, precioNocheBefore)
-                .stream()
-                .map(habitacion -> new Habitacion(
-                        habitacion.getId(),
-                        habitacion.getTamano(),
-                        habitacion.getPrecioNoche(),
-                        habitacion.isDesayuno(),
-                        habitacion.isOcupada(),
-                        habitacion.getHotel()
-                ))
-                .collect(Collectors.toList());
+    public List<Habitacion> getAllHabitaciones(int hotelid, int tamano, double preciomin, double preciomax) {
+        return habitacionRepository.findByHotelIdAndOcupadaFalseAndTamanoAndPrecioNocheBetween(hotelid, tamano, preciomin, preciomax);
     }
 
 
